@@ -8,7 +8,8 @@
     "serve": "node scripts/serve.mjs",
     "test": "node --test tests/*.test.mjs",
     "icons": "node scripts/make-icons.mjs",
-    "package": "node scripts/package.mjs"
+    "package": "node scripts/package.mjs",
+    "demo": "node scripts/record-demo.mjs"
   },
   "devDependencies": {
     "playwright": "1.56.1"

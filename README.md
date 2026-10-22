@@ -6,6 +6,8 @@ FakerFill guesses what each field wants from its name, id, label, placeholder, `
 `autocomplete` attribute and input type, and you can add rules that pin exact values for particular
 fields.
 
+![FakerFill filling the sign-up, address and payment forms on the test page: empty forms, the Alt+Shift+F shortcut, then the filled forms](docs/demo.gif)
+
 It works in Chrome, Edge, Brave and Firefox (Manifest V3). It has no runtime dependencies, makes no
 network requests, and only touches a page when you trigger it.
 
@@ -109,15 +111,17 @@ extension/
   shared/              settings storage, shortcut helpers, shared UI styles
   popup/  options/     toolbar popup and settings page
   icons/               icon.svg plus the rendered PNGs (`npm run icons`)
+docs/demo.gif          the README animation (`npm run demo`)
 test-page/             the companion forms
 tests/                 Playwright end-to-end tests
-scripts/               static server, icon renderer, zip packager
+scripts/               static server, icon renderer, zip packager, demo recorder
 ```
 
 ```sh
 npm install
 npm test             # Playwright + Chromium: detection, filling, rules and the loaded extension
 npm run package      # dist/fakerfill-<version>.zip
+npm run demo         # re-record docs/demo.gif (also needs python3 with Pillow)
 ```
 
 The extension asks only for `activeTab`, `scripting`, `storage` and `contextMenus`. It has no host
