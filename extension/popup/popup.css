@@ -1,0 +1,16 @@
+body { width: 380px; padding: 14px; }
+header { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+h1 { font-size: 17px; margin: 0; }
+h2 { font-size: 13px; margin: 14px 0 6px; }
+.actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.actions button { justify-content: center; }
+.shortcut { margin: 10px 0 0; color: var(--muted); font-size: 13px; }
+#status { margin: 6px 0 0; font-size: 13px; min-height: 1em; }
+#status.error { color: var(--danger); }
+#status.ok { color: var(--ok); }
+.table-wrap { max-height: 240px; overflow: auto; border: 1px solid var(--border); border-radius: var(--radius); }
+table { width: 100%; border-collapse: collapse; font-size: 12px; }
+th, td { text-align: left; padding: 4px 8px; border-bottom: 1px solid var(--border); max-width: 130px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+th { position: sticky; top: 0; background: var(--surface); font-weight: 600; }
+td:nth-child(2) { color: var(--accent); }
+footer { display: flex; justify-content: space-between; margin-top: 14px; font-size: 13px; }

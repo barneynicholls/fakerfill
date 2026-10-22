@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#8b5cf6"/>
+      <stop offset="1" stop-color="#6d28d9"/>
+    </linearGradient>
+  </defs>
+  <rect x="4" y="4" width="120" height="120" rx="28" fill="url(#g)"/>
+  <!-- form field lines -->
+  <rect x="26" y="30" width="76" height="16" rx="5" fill="#ffffff" opacity="0.95"/>
+  <rect x="26" y="56" width="76" height="16" rx="5" fill="#ffffff" opacity="0.95"/>
+  <rect x="26" y="82" width="44" height="16" rx="5" fill="#ffffff" opacity="0.95"/>
+  <!-- typed text -->
+  <rect x="32" y="36" width="34" height="4" rx="2" fill="#6d28d9"/>
+  <rect x="32" y="62" width="48" height="4" rx="2" fill="#6d28d9"/>
+  <!-- sparkle -->
+  <path d="M92 76 L96 88 L108 92 L96 96 L92 108 L88 96 L76 92 L88 88 Z" fill="#fde047"/>
+</svg>

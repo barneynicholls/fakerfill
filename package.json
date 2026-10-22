@@ -1,0 +1,16 @@
+{
+  "name": "fakerfill",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Browser extension that fills forms with fake data, plus a test page to try it on.",
+  "type": "module",
+  "scripts": {
+    "serve": "node scripts/serve.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "icons": "node scripts/make-icons.mjs",
+    "package": "node scripts/package.mjs"
+  },
+  "devDependencies": {
+    "playwright": "1.56.1"
+  }
+}

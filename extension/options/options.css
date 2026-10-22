@@ -1,0 +1,43 @@
+main { max-width: 920px; margin: 0 auto; padding: 28px 20px 60px; }
+.page-head { display: flex; gap: 14px; align-items: center; margin-bottom: 18px; }
+.page-head h1 { margin: 0; font-size: 24px; }
+.page-head p { margin: 2px 0 0; }
+.saved { margin-left: auto; color: var(--ok); font-size: 13px; white-space: nowrap; }
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 18px 20px; margin-bottom: 16px; }
+.card h2 { font-size: 16px; margin: 0 0 10px; }
+.section-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.small { font-size: 13px; }
+.row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
+.grid label, .rule-fields label { display: flex; flex-direction: column; gap: 4px; font-size: 13px; font-weight: 600; }
+.checks { display: flex; flex-direction: column; gap: 6px; margin-top: 14px; }
+.checks label { display: flex; gap: 8px; align-items: center; }
+.rules { display: flex; flex-direction: column; gap: 10px; margin-top: 12px; }
+.rule { display: grid; grid-template-columns: auto 1fr auto; gap: 12px; align-items: start; background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 12px; }
+.rule.disabled .rule-fields { opacity: 0.55; }
+.rule.flash { animation: flash 1.6s ease; }
+@keyframes flash { 0%, 40% { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); } }
+.rule-fields { display: grid; grid-template-columns: 1.3fr 0.8fr 0.9fr; gap: 10px; }
+.rule-fields .value, .rule-fields .site { grid-column: span 3; }
+.rule-fields label { font-weight: 500; }
+.value-row { display: flex; gap: 6px; }
+.value-row input { flex: 1; }
+.token-insert { width: 110px; }
+.preview { font-weight: 400; font-size: 12px; min-height: 1em; overflow-wrap: anywhere; }
+.rule-actions { display: flex; flex-direction: column; gap: 4px; }
+.rule-actions button { padding: 3px 8px; justify-content: center; }
+.toggle { padding-top: 22px; }
+.toggle input { width: 18px; height: 18px; accent-color: var(--accent); }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+.empty { text-align: center; padding: 12px; }
+.tokens { display: flex; flex-wrap: wrap; gap: 6px; }
+.tokens button { padding: 4px 8px; font-size: 12px; flex-direction: column; align-items: flex-start; gap: 0; }
+.tokens code { background: none; padding: 0; color: var(--accent); }
+.tokens span { color: var(--muted); font-size: 11px; }
+@media (max-width: 640px) {
+  .rule { grid-template-columns: 1fr; }
+  .rule-fields { grid-template-columns: 1fr; }
+  .rule-fields .value, .rule-fields .site { grid-column: auto; }
+  .rule-actions { flex-direction: row; }
+  .toggle { padding-top: 0; }
+}

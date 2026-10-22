@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Newsletter form (iframe)</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>body { background: var(--card); padding: 16px; } h3 { margin: 0 0 10px; }</style>
+</head>
+<body>
+  <h3>Newsletter sign-up</h3>
+  <form>
+    <div class="grid">
+      <label>First name <input name="fname" data-expect="firstName"></label>
+      <label>Email <input name="EMAIL" data-expect="email"></label>
+      <label>Country
+        <select name="country" data-expect="country"><option value="">—</option><option>United Kingdom</option><option>United States</option><option>Spain</option></select>
+      </label>
+    </div>
+    <label class="inline"><input type="checkbox" name="gdpr" required> I consent to receiving emails</label>
+    <button type="submit">Subscribe</button>
+  </form>
+  <script>
+    document.querySelector('form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      alert(JSON.stringify(Object.fromEntries(new FormData(e.target)), null, 2));
+    });
+  </script>
+</body>
+</html>
