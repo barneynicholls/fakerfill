@@ -1,0 +1,61 @@
+{
+  "manifest_version": 3,
+  "name": "FakerFill",
+  "short_name": "FakerFill",
+  "version": "1.0.0",
+  "description": "Fill web forms with realistic fake data. Press Alt+Shift+F. Smart field detection plus your own per-field rules.",
+  "icons": {
+    "16": "icons/icon-16.png",
+    "32": "icons/icon-32.png",
+    "48": "icons/icon-48.png",
+    "128": "icons/icon-128.png"
+  },
+  "action": {
+    "default_title": "FakerFill",
+    "default_popup": "popup/popup.html",
+    "default_icon": {
+      "16": "icons/icon-16.png",
+      "32": "icons/icon-32.png"
+    }
+  },
+  "background": {
+    "service_worker": "background.js",
+    "scripts": [
+      "shared/settings.js",
+      "background.js"
+    ]
+  },
+  "options_ui": {
+    "page": "options/options.html",
+    "open_in_tab": true
+  },
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "storage",
+    "contextMenus"
+  ],
+  "commands": {
+    "fill-page": {
+      "suggested_key": {
+        "default": "Alt+Shift+F",
+        "mac": "Alt+Shift+F"
+      },
+      "description": "Fill the page with fake data"
+    },
+    "fill-form": {
+      "description": "Fill only the form containing the focused field"
+    }
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "fakerfill@barneynicholls.github.io",
+      "strict_min_version": "121.0",
+      "data_collection_permissions": {
+        "required": [
+          "none"
+        ]
+      }
+    }
+  }
+}

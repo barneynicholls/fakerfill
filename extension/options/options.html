@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FakerFill settings</title>
+  <link rel="stylesheet" href="../shared/ui.css">
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+  <main>
+    <header class="page-head">
+      <img src="../icons/icon-48.png" alt="" width="40" height="40">
+      <div>
+        <h1>FakerFill</h1>
+        <p class="muted">Fill forms with fake data. Detection is automatic; rules let you pin exact values for particular fields.</p>
+      </div>
+      <span id="saved" class="saved" aria-live="polite"></span>
+    </header>
+
+    <section class="card">
+      <h2>Keyboard shortcut</h2>
+      <p>Fill the page: <span id="shortcut-current"></span></p>
+      <div id="shortcut-edit" hidden class="row">
+        <input id="shortcut-input" placeholder="e.g. Alt+Shift+F" aria-label="Shortcut">
+        <button id="shortcut-save">Save shortcut</button>
+        <span id="shortcut-msg" class="muted"></span>
+      </div>
+      <div id="shortcut-link" hidden>
+        <button id="shortcut-open">Change in browser shortcut settings</button>
+        <p class="muted small">Chrome and Edge only allow shortcuts to be changed from their own settings page. You can also assign a key to “Fill only the form containing the focused field” there.</p>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Behaviour</h2>
+      <div class="grid">
+        <label>Shortcut fills
+          <select data-opt="scope">
+            <option value="page">every field on the page</option>
+            <option value="form">only the form with focus</option>
+          </select>
+        </label>
+        <label>Data style
+          <select data-opt="locale">
+            <option value="en-GB">UK (en-GB)</option>
+            <option value="en-US">US (en-US)</option>
+          </select>
+        </label>
+        <label>Optional checkboxes
+          <select data-opt="checkboxes">
+            <option value="random">tick at random</option>
+            <option value="all">tick all</option>
+            <option value="none">leave unticked</option>
+          </select>
+        </label>
+      </div>
+      <div class="checks">
+        <label><input type="checkbox" data-opt="overwrite"> Overwrite fields that already have a value</label>
+        <label><input type="checkbox" data-opt="highlight"> Briefly highlight filled fields</label>
+        <label><input type="checkbox" data-opt="fillHidden"> Fill hidden fields too <span class="muted">(can trip spam honeypots)</span></label>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="section-head">
+        <h2>Field rules</h2>
+        <button id="add-rule" class="primary">+ Add rule</button>
+      </div>
+      <p class="muted small">
+        Rules are checked top to bottom before automatic detection; the first match wins.
+        A rule matches a field's <code>name</code>, <code>id</code>, label, placeholder, <code>aria-label</code> or <code>autocomplete</code>.
+        Values can mix fixed text with generator tokens such as <code>{{email}}</code> or <code>{{number:1-10}}</code>.
+        For selects, use the option value or text (separate several with <code>|</code> for multi-selects); for checkboxes, <code>true</code> or <code>false</code>.
+        Tip: right-click any field on a page and choose <em>Create FakerFill rule for this field…</em>
+      </p>
+      <div id="rules" class="rules"></div>
+      <p id="no-rules" class="muted empty" hidden>No rules yet — FakerFill will guess every field.</p>
+    </section>
+
+    <section class="card">
+      <h2>Generator tokens</h2>
+      <p class="muted small">Click a token to copy it. Values within one fill are consistent: <code>{{email}}</code> is built from <code>{{firstName}}</code> and <code>{{lastName}}</code>, and every password field gets the same <code>{{password}}</code>.</p>
+      <div id="tokens" class="tokens"></div>
+    </section>
+
+    <section class="card">
+      <h2>Backup</h2>
+      <div class="row">
+        <button id="export">Export settings</button>
+        <label class="btn">Import settings<input id="import" type="file" accept="application/json,.json" hidden></label>
+        <button id="reset" class="danger">Reset to defaults</button>
+      </div>
+      <p id="backup-msg" class="muted small"></p>
+    </section>
+  </main>
+
+  <template id="rule-tpl">
+    <div class="rule">
+      <label class="toggle" title="Enabled"><input type="checkbox" data-k="enabled"><span class="sr">Enabled</span></label>
+      <div class="rule-fields">
+        <label>Field
+          <input data-k="field" placeholder="name, id or label text">
+        </label>
+        <label>Match
+          <select data-k="matchType">
+            <option value="contains">contains</option>
+            <option value="exact">is exactly</option>
+            <option value="regex">regex</option>
+          </select>
+        </label>
+        <label>Action
+          <select data-k="action">
+            <option value="fill">fill with</option>
+            <option value="skip">leave untouched</option>
+          </select>
+        </label>
+        <label class="value">Value
+          <span class="value-row">
+            <input data-k="value" placeholder="text and/or {{tokens}}">
+            <select class="token-insert" aria-label="Insert token"><option value="">+ token</option></select>
+          </span>
+          <span class="preview muted"></span>
+        </label>
+        <label class="site"><span>Only on sites <span class="muted">(optional, comma-separated, * wildcard)</span></span>
+          <input data-k="site" placeholder="*.example.com, localhost">
+        </label>
+      </div>
+      <div class="rule-actions">
+        <button class="up" title="Move up" aria-label="Move up">↑</button>
+        <button class="down" title="Move down" aria-label="Move down">↓</button>
+        <button class="delete danger" title="Delete" aria-label="Delete">✕</button>
+      </div>
+    </div>
+  </template>
+
+  <script src="../shared/settings.js"></script>
+  <script src="../shared/shortcuts.js"></script>
+  <script src="../content/faker.js"></script>
+  <script src="options.js"></script>
+</body>
+</html>

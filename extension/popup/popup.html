@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>FakerFill</title>
+  <link rel="stylesheet" href="../shared/ui.css">
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <header>
+    <img src="../icons/icon-32.png" alt="" width="24" height="24">
+    <h1>FakerFill</h1>
+  </header>
+  <div class="actions">
+    <button id="fill-page" class="primary">Fill this page</button>
+    <button id="fill-form" title="Only the form containing the field that has focus">Fill focused form</button>
+  </div>
+  <p class="shortcut">Shortcut: <span id="shortcut"><kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>F</kbd></span></p>
+  <p id="status" role="status"></p>
+  <section id="report" hidden>
+    <h2>Last fill <span id="report-count" class="muted"></span></h2>
+    <div class="table-wrap"><table><thead><tr><th>Field</th><th>Detected as</th><th>Value</th></tr></thead><tbody></tbody></table></div>
+  </section>
+  <footer>
+    <a href="#" id="open-options">Rules &amp; settings</a>
+    <a href="#" id="open-shortcuts">Change shortcut</a>
+  </footer>
+  <script src="../shared/shortcuts.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

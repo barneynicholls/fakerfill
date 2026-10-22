@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FakerFill Test Forms</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="hero">
+    <div class="wrap">
+      <h1>FakerFill test forms</h1>
+      <p>Press <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>F</kbd> to fill every form on this page, or click into a form and use <em>Fill focused form</em> from the toolbar popup or right-click menu.
+        Submitting a form shows what it would have sent instead of leaving the page.</p>
+      <div class="toolbar">
+        <button type="button" id="reset-all">Clear all forms</button>
+        <label class="inline" data-fakerfill-ignore><input type="checkbox" id="show-expect"> Show expected detection</label>
+      </div>
+      <nav aria-label="Forms">
+        <a href="#signup">Sign up</a><a href="#login">Log in</a><a href="#contact">Contact</a><a href="#address">Address</a>
+        <a href="#payment">Payment</a><a href="#profile">Profile &amp; job</a><a href="#booking">Booking</a><a href="#uk">UK details</a>
+        <a href="#tricky">Tricky fields</a><a href="#html5">HTML5 inputs</a><a href="#framework">Framework &amp; shadow DOM</a><a href="#rules">Custom rules</a><a href="#iframe">iframe</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+
+    <!-- 1. Sign up -->
+    <section id="signup" class="card">
+      <h2>1 · Sign up</h2>
+      <p class="hint">Classic registration form. Confirm fields should match their originals; the terms box is required so it is always ticked.</p>
+      <form>
+        <div class="grid">
+          <label>Title
+            <select name="title" data-expect="title">
+              <option value="">Select…</option><option>Mr</option><option>Mrs</option><option>Ms</option><option>Miss</option><option>Dr</option>
+            </select>
+          </label>
+          <label>First name <input name="first_name" required data-expect="firstName"></label>
+          <label>Last name <input name="last_name" required data-expect="lastName"></label>
+          <label>Email <input type="email" name="email" required data-expect="email"></label>
+          <label>Confirm email <input type="email" name="email_confirm" required data-expect="email"></label>
+          <label>Username <input name="username" data-expect="username"></label>
+          <label>Password <input type="password" name="password" minlength="10" required data-expect="password"></label>
+          <label>Confirm password <input type="password" name="password_confirmation" required data-expect="password"></label>
+          <label>Date of birth <input type="date" name="dob" data-expect="dob"></label>
+          <label>Mobile <input type="tel" name="mobile" data-expect="phone"></label>
+        </div>
+        <fieldset>
+          <legend>Gender</legend>
+          <label class="inline"><input type="radio" name="gender" value="female"> Female</label>
+          <label class="inline"><input type="radio" name="gender" value="male"> Male</label>
+          <label class="inline"><input type="radio" name="gender" value="other"> Other</label>
+          <label class="inline"><input type="radio" name="gender" value="na"> Prefer not to say</label>
+        </fieldset>
+        <label class="inline"><input type="checkbox" name="terms" required> I agree to the terms &amp; conditions</label>
+        <label class="inline"><input type="checkbox" name="newsletter"> Send me the newsletter</label>
+        <button type="submit">Create account</button>
+      </form>
+    </section>
+
+    <!-- 2. Login -->
+    <section id="login" class="card">
+      <h2>2 · Log in</h2>
+      <p class="hint">Uses <code>autocomplete</code> attributes with unhelpful names — detection should follow the autocomplete hints.</p>
+      <form>
+        <div class="grid">
+          <label>Account <input name="f1" autocomplete="username" data-expect="username"></label>
+          <label>Secret <input type="password" name="f2" autocomplete="current-password" data-expect="password"></label>
+          <label>One-time code <input name="f3" autocomplete="one-time-code" inputmode="numeric" maxlength="6" data-expect="otp"></label>
+        </div>
+        <label class="inline"><input type="checkbox" name="remember_me"> Remember me</label>
+        <button type="submit">Log in</button>
+      </form>
+    </section>
+
+    <!-- 3. Contact -->
+    <section id="contact" class="card">
+      <h2>3 · Contact us</h2>
+      <form>
+        <div class="grid">
+          <label>Your name <input name="contact[name]" data-expect="fullName"></label>
+          <label>Email address <input name="contact[email]" data-expect="email"></label>
+          <label>Phone <input name="contact[phone]" data-expect="phone"></label>
+          <label>Company <input name="contact[company]" data-expect="company"></label>
+          <label>Topic
+            <select name="contact[topic]" required>
+              <option value="">— Choose a topic —</option>
+              <option value="sales">Sales</option><option value="support">Support</option><option value="billing">Billing</option><option value="press">Press</option>
+            </select>
+          </label>
+          <label>Subject <input name="contact[subject]" data-expect="subject"></label>
+        </div>
+        <label>Message <textarea name="contact[message]" rows="4" data-expect="paragraph"></textarea></label>
+        <label>How did you hear about us? <textarea name="contact[referral]" rows="2" data-expect="paragraph"></textarea></label>
+        <button type="submit">Send</button>
+      </form>
+    </section>
+
+    <!-- 4. Address -->
+    <section id="address" class="card">
+      <h2>4 · Shipping address</h2>
+      <p class="hint">The country and county selects should pick the option matching the generated address when one exists.</p>
+      <form>
+        <div class="grid">
+          <label>Full name <input name="shipping_full_name" data-expect="fullName"></label>
+          <label>Address line 1 <input name="shipping_address_1" data-expect="street"></label>
+          <label>Address line 2 <input name="shipping_address_2" data-expect="address2"></label>
+          <label>Town / City <input name="shipping_city" data-expect="city"></label>
+          <label>County / State <input name="shipping_state" data-expect="state"></label>
+          <label>Postcode / ZIP <input name="shipping_postcode" data-expect="zip"></label>
+          <label>Country
+            <select name="shipping_country" data-expect="country">
+              <option value="">Select a country</option>
+              <option value="AU">Australia</option><option value="CA">Canada</option><option value="FR">France</option><option value="DE">Germany</option>
+              <option value="IE">Ireland</option><option value="GB">United Kingdom</option><option value="US">United States</option>
+            </select>
+          </label>
+          <label>Delivery phone <input name="shipping_phone" type="tel" data-expect="phone"></label>
+        </div>
+        <label class="inline"><input type="checkbox" name="billing_same"> Billing address is the same</label>
+        <label>Delivery instructions <textarea name="delivery_notes" rows="2" data-expect="paragraph"></textarea></label>
+        <button type="submit">Save address</button>
+      </form>
+    </section>
+
+    <!-- 5. Payment -->
+    <section id="payment" class="card">
+      <h2>5 · Payment</h2>
+      <p class="hint">Card numbers are Luhn-valid Visa test numbers starting with 4. Two expiry styles: separate selects and a single <code>MM/YY</code> box.</p>
+      <form>
+        <div class="grid">
+          <label>Name on card <input name="cc-name" data-expect="cardName"></label>
+          <label>Card number <input name="cardnumber" inputmode="numeric" data-expect="cardNumber"></label>
+          <label>Expiry month
+            <select name="exp_month" data-expect="cardExpMonth">
+              <option value="">MM</option>
+              <option>01</option><option>02</option><option>03</option><option>04</option><option>05</option><option>06</option>
+              <option>07</option><option>08</option><option>09</option><option>10</option><option>11</option><option>12</option>
+            </select>
+          </label>
+          <label>Expiry year
+            <select name="exp_year" id="exp-year" data-expect="cardExpYear"><option value="">YYYY</option></select>
+          </label>
+          <label>Security code <input name="cvc" maxlength="4" data-expect="cardCvc"></label>
+          <label>Expiry (MM/YY) <input name="expiry" placeholder="MM/YY" pattern="\d{2}/\d{2}" data-expect="cardExpiry"></label>
+          <label>Amount (£) <input type="number" name="amount" min="1" max="500" step="0.01" data-expect="price"></label>
+          <label>Currency
+            <select name="currency"><option>GBP</option><option>USD</option><option>EUR</option></select>
+          </label>
+        </div>
+        <label class="inline"><input type="checkbox" name="save_card"> Save this card</label>
+        <button type="submit">Pay now</button>
+      </form>
+    </section>
+
+    <!-- 6. Profile & job -->
+    <section id="profile" class="card">
+      <h2>6 · Profile &amp; job application</h2>
+      <form>
+        <div class="grid">
+          <label>Employer <input name="employer" data-expect="company"></label>
+          <label>Job title <input name="jobTitle" data-expect="jobTitle"></label>
+          <label>Department <input name="dept" data-expect="department"></label>
+          <label>Website <input type="url" name="homepage" data-expect="website"></label>
+          <label>Expected salary <input type="number" name="salary" min="20000" max="150000" step="1000" data-expect="price"></label>
+          <label>Start date <input type="date" name="start_date" data-expect="futureDate"></label>
+          <label>Age <input type="number" name="age" min="18" max="99" data-expect="age"></label>
+          <label>Years of experience <input type="range" name="experience" min="0" max="40" data-expect="number"></label>
+          <label>Skills (multi-select)
+            <select name="skills" multiple size="5">
+              <option>JavaScript</option><option>TypeScript</option><option>Python</option><option>Go</option><option>Rust</option><option>SQL</option>
+            </select>
+          </label>
+          <label>CV (file inputs are skipped) <input type="file" name="cv"></label>
+        </div>
+        <fieldset>
+          <legend>Preferred working pattern</legend>
+          <label class="inline"><input type="radio" name="pattern" value="office"> Office</label>
+          <label class="inline"><input type="radio" name="pattern" value="hybrid"> Hybrid</label>
+          <label class="inline"><input type="radio" name="pattern" value="remote"> Remote</label>
+        </fieldset>
+        <fieldset>
+          <legend>Interests</legend>
+          <label class="inline"><input type="checkbox" name="interests" value="frontend"> Front end</label>
+          <label class="inline"><input type="checkbox" name="interests" value="backend"> Back end</label>
+          <label class="inline"><input type="checkbox" name="interests" value="devops"> DevOps</label>
+          <label class="inline"><input type="checkbox" name="interests" value="data"> Data</label>
+        </fieldset>
+        <label>About you <textarea name="bio" rows="4" maxlength="280" data-expect="paragraph"></textarea></label>
+        <button type="submit">Apply</button>
+      </form>
+    </section>
+
+    <!-- 7. Booking -->
+    <section id="booking" class="card">
+      <h2>7 · Hotel booking</h2>
+      <form>
+        <div class="grid">
+          <label>Check-in <input type="date" name="check_in" data-expect="futureDate"></label>
+          <label>Check-out <input type="date" name="check_out" data-expect="futureDate"></label>
+          <label>Guests <input type="number" name="guests" min="1" max="6" data-expect="quantity"></label>
+          <label>Arrival time <input type="time" name="arrival_time" data-expect="time"></label>
+          <label>Room type
+            <select name="room">
+              <option value="" disabled selected>Choose a room</option>
+              <option value="single">Single</option><option value="double">Double</option><option value="suite">Suite</option><option value="sold-out" disabled>Penthouse (sold out)</option>
+            </select>
+          </label>
+          <label>Lead guest email <input name="lead_guest_email" data-expect="email"></label>
+        </div>
+        <label>Special requests <textarea name="requests" rows="2" data-expect="paragraph"></textarea></label>
+        <button type="submit">Book</button>
+      </form>
+    </section>
+
+    <!-- 8. UK details -->
+    <section id="uk" class="card">
+      <h2>8 · UK finance details</h2>
+      <p class="hint">Values are deliberately invalid-for-real-use test data (QQ-prefix NI numbers, the published example IBAN, Ofcom drama phone numbers).</p>
+      <form>
+        <div class="grid">
+          <label>Sort code <input name="sort_code" placeholder="00-00-00" data-expect="sortCode"></label>
+          <label>Account number <input name="account_number" maxlength="8" data-expect="accountNumber"></label>
+          <label>IBAN <input name="iban" data-expect="iban"></label>
+          <label>National Insurance number <input name="ni_number" data-expect="niNumber"></label>
+          <label>UK postcode (pattern)
+            <input name="postcode" pattern="[A-Z]{1,2}[0-9][0-9A-Z]? ?[0-9][A-Z]{2}" title="UK postcode" data-expect="zip">
+          </label>
+          <label>Birth day / month / year
+            <span class="split">
+              <input name="dob_day" size="2" placeholder="DD" data-expect="dobDay">
+              <input name="dob_month" size="2" placeholder="MM" data-expect="dobMonth">
+              <input name="dob_year" size="4" placeholder="YYYY" data-expect="dobYear">
+            </span>
+          </label>
+        </div>
+        <button type="submit">Submit</button>
+      </form>
+    </section>
+
+    <!-- 9. Tricky -->
+    <section id="tricky" class="card">
+      <h2>9 · Tricky fields</h2>
+      <p class="hint">Meaningless names, labels only via <code>aria-label</code>/placeholder/table cells, length limits, plus fields that must be left alone (hidden honeypot, captcha, search, disabled, read-only).</p>
+      <form>
+        <div class="grid">
+          <label for="q_17">Surname</label>
+          <input id="q_17" name="q_17" data-expect="lastName">
+          <input name="input_4" aria-label="Email address" data-expect="email">
+          <input name="input_5" placeholder="Phone number" data-expect="phone">
+          <label>City (max 5 chars) <input name="town" maxlength="5" data-expect="city"></label>
+          <label>Disabled field <input name="disabled_name" disabled value="unchanged" data-expect="none"></label>
+          <label>Read-only field <input name="readonly_name" readonly value="unchanged" data-expect="none"></label>
+          <label>Search the site <input type="search" name="q" data-expect="none"></label>
+          <label>Captcha answer <input name="captcha_answer" data-expect="none"></label>
+          <label>Field with no hints at all <input name="xyz" data-expect="text"></label>
+        </div>
+        <div class="honeypot" aria-hidden="true">
+          <label>Leave this empty <input name="website_hp" tabindex="-1" autocomplete="off" data-expect="none"></label>
+        </div>
+        <input type="hidden" name="csrf_token" value="abc123">
+        <table class="legacy">
+          <tr><td>Forename:</td><td><input name="t1" data-expect="firstName"></td></tr>
+          <tr><td>Organisation:</td><td><input name="t2" data-expect="company"></td></tr>
+          <tr><td>Postal code:</td><td><input name="t3" data-expect="zip"></td></tr>
+        </table>
+        <button type="submit">Submit</button>
+      </form>
+    </section>
+
+    <!-- 10. HTML5 -->
+    <section id="html5" class="card">
+      <h2>10 · HTML5 input types</h2>
+      <form>
+        <div class="grid">
+          <label>Colour <input type="color" name="favourite_colour" data-expect="hexColor"></label>
+          <label>Month <input type="month" name="billing_month" data-expect="month"></label>
+          <label>Week <input type="week" name="sprint_week" data-expect="week"></label>
+          <label>Meeting <input type="datetime-local" name="meeting" data-expect="datetime"></label>
+          <label>Number with step <input type="number" name="score" min="0" max="10" step="0.5" data-expect="number"></label>
+          <label>Quantity <input type="number" name="qty" min="1" max="20" data-expect="quantity"></label>
+        </div>
+        <button type="submit">Submit</button>
+      </form>
+    </section>
+
+    <!-- 11. Framework -->
+    <section id="framework" class="card">
+      <h2>11 · Framework-style &amp; shadow DOM</h2>
+      <p class="hint">The left form mimics a React-style controlled component: its state only updates from <code>input</code> events, shown live below. The right form lives inside a web component's shadow root.</p>
+      <div class="grid two">
+        <form id="controlled">
+          <label>First name <input name="firstName" data-expect="firstName"></label>
+          <label>Email <input name="emailAddress" type="email" data-expect="email"></label>
+          <label>Plan
+            <select name="plan"><option value="">Pick a plan</option><option value="free">Free</option><option value="pro">Pro</option></select>
+          </label>
+          <pre id="controlled-state" class="state">{}</pre>
+        </form>
+        <shadow-signup></shadow-signup>
+      </div>
+    </section>
+
+    <!-- 12. Rules -->
+    <section id="rules" class="card">
+      <h2>12 · Custom rule playground</h2>
+      <p class="hint">These fields don't match any built-in detection. Add rules on the FakerFill settings page, for example:</p>
+      <ul class="examples">
+        <li>Field <code>employee_ref</code> → <code>EMP-{{digits:5}}</code></li>
+        <li>Field <code>promo</code> → <code>{{oneOf:SAVE10,WELCOME,FREESHIP}}</code></li>
+        <li>Field <code>team</code> (select) → <code>Platform</code></li>
+        <li>Field <code>marketing_opt_in</code> (checkbox) → <code>false</code></li>
+        <li>Field <code>internal_notes</code> → action <em>leave untouched</em></li>
+      </ul>
+      <form>
+        <div class="grid">
+          <label>Employee reference <input name="employee_ref"></label>
+          <label>Promo code <input name="promo"></label>
+          <label>Team
+            <select name="team"><option value="">—</option><option>Platform</option><option>Mobile</option><option>Web</option><option>Data</option></select>
+          </label>
+          <label>Internal notes <input name="internal_notes"></label>
+        </div>
+        <label class="inline"><input type="checkbox" name="marketing_opt_in"> Marketing opt-in</label>
+        <button type="submit">Submit</button>
+      </form>
+    </section>
+
+    <!-- 13. iframe -->
+    <section id="iframe" class="card">
+      <h2>13 · Form inside an iframe</h2>
+      <p class="hint">Same-origin frames are filled together with the page.</p>
+      <iframe src="iframe-form.html" title="Newsletter sign-up form in an iframe"></iframe>
+    </section>
+  </main>
+
+  <dialog id="result">
+    <h3>Submitted data</h3>
+    <pre id="result-data"></pre>
+    <form method="dialog"><button>Close</button></form>
+  </dialog>
+
+  <script src="test-page.js"></script>
+</body>
+</html>
